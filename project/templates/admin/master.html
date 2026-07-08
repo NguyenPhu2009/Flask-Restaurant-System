@@ -1,0 +1,50 @@
+{% extends 'admin/base.html' %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .user-panel {
+        float: right;
+        padding: 10px 15px;
+        color: #333; /* Chữ tối */
+        display: flex;
+        align-items: center;
+    }
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-left: 10px;
+        object-fit: cover;
+        border: 2px solid #ccc;
+    }
+    .user-name {
+        margin-right: 10px;
+        font-weight: bold;
+        color: #5A7863;
+    }
+</style>
+{% endblock %}
+
+{% block access_control %}
+{% if session.loggedin %}
+<div class="user-panel">
+    <span class="user-name">{{ session.fullname }}</span>
+
+    {% if session.avatar %}
+    <img src="{{ session.avatar }}" class="user-avatar" alt="Avatar">
+    {% else %}
+    <i class="fa fa-user-circle fa-2x"></i>
+    {% endif %}
+
+    <a href="/logout" class="btn btn-danger btn-xs" style="margin-left: 15px;">
+        <i class="fa fa-sign-out-alt"></i> Đăng xuất
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block brand %}
+<a href="/admin" class="navbar-brand">PTT Quản Trị</a>
+{% endblock %}
